@@ -470,7 +470,7 @@ async function doLogin() {
     token = r.token;
     localStorage.setItem('mb_token', token);
     loadApp();
-  } catch(e) { showErr(err, e.message); }
+  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py çalışmıyor! Terminalde: py api.py' : e.message); }
 }
 
 async function doRegister() {
@@ -485,7 +485,7 @@ async function doRegister() {
     token = r.token;
     localStorage.setItem('mb_token', token);
     loadApp();
-  } catch(e) { showErr(err, e.message); }
+  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py çalışmıyor! Terminalde: py api.py' : e.message); }
 }
 
 async function doLogout() {
@@ -560,7 +560,7 @@ async function doCreateServer() {
     document.getElementById('new-desc').value = '';
     showToast('Sunucu oluşturuldu!');
     await refreshServers();
-  } catch(e) { showErr(err, e.message); }
+  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py çalışmıyor! Terminalde: py api.py' : e.message); }
 }
 
 // ── SUNUCU DETAY ──
@@ -655,7 +655,7 @@ async function doJoinServer() {
     document.getElementById('join-code').value = '';
     showToast(`"${r.server.name}" sunucusuna katıldın!`);
     await refreshServers();
-  } catch(e) { showErr(err, e.message); }
+  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py çalışmıyor! Terminalde: py api.py' : e.message); }
 }
 
 // URL'den join parametresi varsa otomatik aç
@@ -678,7 +678,7 @@ async function api(path, method = 'GET', body = null) {
   if (body) opts.body = JSON.stringify(body);
   const r = await fetch(API + path, opts);
   const data = await r.json();
-  if (!r.ok) throw new Error(data.detail || 'Bir hata oluştu');
+  if (!r.ok) throw new Error(data.detail || 'Bağlantı hatası! Önce bilgisayarında api.py\'yi başlat: py api.py');
   return data;
 }
 
