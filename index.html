@@ -358,25 +358,29 @@
   <div class="auth-box">
     <div class="auth-logo">MINEBRIDGE<span>DECENTRALIZED SERVERS</span></div>
     <div class="auth-tabs">
-      <button class="auth-tab active" onclick="switchTab('login')">Giriş</button>
-      <button class="auth-tab" onclick="switchTab('register')">Kayıt</button>
+      <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+      <button class="auth-tab" onclick="switchTab('register')">Register</button>
     </div>
 
     <!-- Login -->
     <div id="login-form">
-      <div class="field"><label>KULLANICI ADI</label><input id="l-user" type="text" placeholder="herobrine" autocomplete="username"></div>
-      <div class="field"><label>ŞİFRE</label><input id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
+      <div class="field"><label>USERNAME</label><input id="l-user" type="text" placeholder="herobrine" autocomplete="username"></div>
+      <div class="field"><label>PASSWORD</label><input id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
       <div class="error-msg" id="login-err"></div>
-      <button class="btn" onclick="doLogin()">GİRİŞ YAP</button>
+      <button class="btn" onclick="doLogin()">LOGIN</button>
+    <div style="text-align:center;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;">
+      <span style="font-size:11px;color:var(--text2);">First time here?</span><br>
+      <a href="#" onclick="openModal('download-modal')" style="font-size:11px;color:var(--green);text-decoration:none;">⬇ Download MineBridge Agent →</a>
+    </div>
     </div>
 
     <!-- Register -->
     <div id="register-form" style="display:none">
-      <div class="field"><label>KULLANICI ADI</label><input id="r-user" type="text" placeholder="herobrine"></div>
-      <div class="field"><label>E-POSTA</label><input id="r-email" type="email" placeholder="steve@minecraft.net"></div>
-      <div class="field"><label>ŞİFRE</label><input id="r-pass" type="password" placeholder="min. 6 karakter"></div>
+      <div class="field"><label>USERNAME</label><input id="r-user" type="text" placeholder="herobrine"></div>
+      <div class="field"><label>EMAIL</label><input id="r-email" type="email" placeholder="steve@minecraft.net"></div>
+      <div class="field"><label>PASSWORD</label><input id="r-pass" type="password" placeholder="min. 6 characters"></div>
       <div class="error-msg" id="register-err"></div>
-      <button class="btn" onclick="doRegister()">KAYIT OL</button>
+      <button class="btn" onclick="doRegister()">REGISTER</button>
     </div>
   </div>
 </div>
@@ -386,34 +390,35 @@
   <nav class="navbar">
     <div class="nav-logo">⛏ MINEBRIDGE</div>
     <div class="nav-user">
-      <span class="nav-username">Merhaba, <span id="nav-username-text">—</span></span>
-      <button class="btn sm outline" onclick="doLogout()">Çıkış</button>
+      <span class="nav-username">Hello, <span id="nav-username-text">—</span></span>
+      <button class="btn sm outline" onclick="openModal('download-modal')">⬇ Download Agent</button>
+      <button class="btn sm outline" onclick="doLogout()">Logout</button>
     </div>
   </nav>
 
   <div class="content">
     <!-- Kendi sunucuları -->
     <div class="section-header">
-      <div class="section-title">⬛ SUNUCULARIM</div>
-      <button class="btn sm" onclick="openCreateModal()">+ Yeni Sunucu</button>
+      <div class="section-title">⬛ MY SERVERS</div>
+      <button class="btn sm" onclick="openCreateModal()">+ New Server</button>
     </div>
     <div id="my-servers" class="servers-grid"></div>
 
     <!-- Üye olunan sunucular -->
-    <div class="joined-label">▸ KATILDIĞIM SUNUCULAR</div>
+    <div class="joined-label">▸ JOINED SERVERS</div>
     <div id="joined-servers" class="servers-grid"></div>
   </div>
 </div>
 
-<!-- SUNUCU OLUŞTUR MODAL -->
+<!-- SUNUCU CREATE MODAL -->
 <div class="modal-overlay" id="create-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('create-modal')">✕</button>
-    <div class="modal-title">YENİ SUNUCU</div>
-    <div class="field"><label>SUNUCU ADI</label><input id="new-name" type="text" placeholder="Benim Sunucum"></div>
-    <div class="field"><label>AÇIKLAMA (opsiyonel)</label><input id="new-desc" type="text" placeholder="Arkadaşlarla survival..."></div>
+    <div class="modal-title">NEW SERVER</div>
+    <div class="field"><label>SERVER NAME</label><input id="new-name" type="text" placeholder="My Server"></div>
+    <div class="field"><label>DESCRIPTION (optional)</label><input id="new-desc" type="text" placeholder="Survival with friends..."></div>
     <div class="error-msg" id="create-err"></div>
-    <button class="btn" onclick="doCreateServer()">OLUŞTUR</button>
+    <button class="btn" onclick="doCreateServer()">CREATE</button>
   </div>
 </div>
 
@@ -431,10 +436,55 @@
 <div class="modal-overlay" id="invite-join-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('invite-join-modal')">✕</button>
-    <div class="modal-title">SUNUCUYA KATIL</div>
-    <div class="field"><label>DAVET KODU</label><input id="join-code" type="text" placeholder="abc123XY"></div>
+    <div class="modal-title">JOIN SERVER</div>
+    <div class="field"><label>INVITE CODE</label><input id="join-code" type="text" placeholder="abc123XY"></div>
     <div class="error-msg" id="join-err"></div>
-    <button class="btn" onclick="doJoinServer()">KATIL</button>
+    <button class="btn" onclick="doJoinServer()">JOIN</button>
+  </div>
+</div>
+
+<!-- DOWNLOAD MODAL -->
+<div class="modal-overlay" id="download-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('download-modal')">✕</button>
+    <div class="modal-title">⬇ MINEBRIDGE AGENT</div>
+    <p style="font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:20px;">
+      MineBridge Agent, Minecraft sunucunu kendi bilgisayarından yönetmeni sağlar.<br>
+      Arkadaşların siteye girip davet koduyla sunucuna katılabilir.
+    </p>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);padding:16px;margin-bottom:16px;">
+      <div style="font-size:11px;color:var(--green);font-family:var(--pixel);letter-spacing:1px;margin-bottom:10px;">STEP 1 — DOWNLOAD AGENT</div>
+      <p style="font-size:11px;color:var(--text2);line-height:1.8;margin-bottom:12px;">
+        Download the files below and put them in the same folder:
+      </p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="https://raw.githubusercontent.com/baris11ozmen/minebrigde/main/api.py" download="api.py" class="btn sm" style="text-decoration:none;">📄 api.py</a>
+        <a href="https://raw.githubusercontent.com/baris11ozmen/minebrigde/main/Procfile" download="MINEBRIDGE_BASLAT.bat" class="btn sm outline" style="text-decoration:none;">🚀 MINEBRIDGE_BASLAT.bat</a>
+      </div>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);padding:16px;margin-bottom:16px;">
+      <div style="font-size:11px;color:var(--green);font-family:var(--pixel);letter-spacing:1px;margin-bottom:10px;">STEP 2 — RUN</div>
+      <p style="font-size:11px;color:var(--text2);line-height:1.8;">
+        1. <code style="color:var(--green)">MINEBRIDGE_BASLAT.bat</code> dosyasına çift tıkla<br>
+        2. Siyah ekran açılır, kurulum otomatik yapılır<br>
+        3. Bu siteye geri dön, giriş yap!
+      </p>
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);padding:16px;margin-bottom:20px;">
+      <div style="font-size:11px;color:var(--green);font-family:var(--pixel);letter-spacing:1px;margin-bottom:10px;">STEP 3 — CREATE SERVER</div>
+      <p style="font-size:11px;color:var(--text2);line-height:1.8;">
+        1. Login yap → "Yeni Sunucu" oluştur<br>
+        2. PowerShell'de: <code style="color:var(--green)">py main.py</code><br>
+        3. Arkadaşlarına davet kodu gönder!
+      </p>
+    </div>
+
+    <div style="background:rgba(74,222,128,0.05);border:1px solid var(--green-dim);padding:12px;font-size:11px;color:var(--text2);">
+      ⚠ Requirements: <span style="color:var(--text)">Windows 10/11 · Python 3.11+ · Java 17+</span>
+    </div>
   </div>
 </div>
 
@@ -464,13 +514,13 @@ async function doLogin() {
   const pass = document.getElementById('l-pass').value;
   const err = document.getElementById('login-err');
   err.classList.remove('show');
-  if (!user || !pass) { showErr(err, 'Tüm alanları doldur'); return; }
+  if (!user || !pass) { showErr(err, 'Fill in all fields'); return; }
   try {
     const r = await api('/api/auth/login', 'POST', { username: user, password: pass });
     token = r.token;
     localStorage.setItem('mb_token', token);
     loadApp();
-  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py çalışmıyor! Terminalde: py api.py' : e.message); }
+  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py is not running! In terminal: py api.py' : e.message); }
 }
 
 async function doRegister() {
@@ -479,13 +529,13 @@ async function doRegister() {
   const pass = document.getElementById('r-pass').value;
   const err = document.getElementById('register-err');
   err.classList.remove('show');
-  if (!user || !email || !pass) { showErr(err, 'Tüm alanları doldur'); return; }
+  if (!user || !email || !pass) { showErr(err, 'Fill in all fields'); return; }
   try {
     const r = await api('/api/auth/register', 'POST', { username: user, email, password: pass });
     token = r.token;
     localStorage.setItem('mb_token', token);
     loadApp();
-  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py çalışmıyor! Terminalde: py api.py' : e.message); }
+  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py is not running! In terminal: py api.py' : e.message); }
 }
 
 async function doLogout() {
@@ -526,8 +576,8 @@ function renderServers(containerId, servers, showCreate) {
     el.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
       <div class="empty-icon">${showCreate ? '□' : '○'}</div>
       <div class="empty-text">${showCreate
-        ? 'Henüz sunucun yok.<br>Yeni bir Minecraft dünyası başlat!'
-        : 'Henüz hiçbir sunucuya katılmadın.<br><a href="#" onclick="openJoinModal()" style="color:var(--green)">Davet koduyla katıl →</a>'
+        ? 'No servers yet.<br>Start a new Minecraft world!'
+        : 'You haven't joined any servers yet.<br><a href="#" onclick="openJoinModal()" style="color:var(--green)">Join with invite code →</a>'
       }</div>
     </div>`;
     return;
@@ -544,7 +594,7 @@ function renderServers(containerId, servers, showCreate) {
   `).join('');
 }
 
-// ── SUNUCU OLUŞTUR ──
+// ── SUNUCU CREATE ──
 function openCreateModal() { openModal('create-modal'); }
 
 async function doCreateServer() {
@@ -552,15 +602,15 @@ async function doCreateServer() {
   const desc = document.getElementById('new-desc').value.trim();
   const err = document.getElementById('create-err');
   err.classList.remove('show');
-  if (!name) { showErr(err, 'Sunucu adı gerekli'); return; }
+  if (!name) { showErr(err, 'Server name is required'); return; }
   try {
     await api('/api/servers', 'POST', { name, description: desc });
     closeModal('create-modal');
     document.getElementById('new-name').value = '';
     document.getElementById('new-desc').value = '';
-    showToast('Sunucu oluşturuldu!');
+    showToast('Server created!');
     await refreshServers();
-  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py çalışmıyor! Terminalde: py api.py' : e.message); }
+  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py is not running! In terminal: py api.py' : e.message); }
 }
 
 // ── SUNUCU DETAY ──
@@ -572,41 +622,41 @@ async function openDetail(serverId) {
   const isOwner = server.owner_id === me.user_id;
   const ipVal = server.tunnel_url
     ? `<span class="detail-val green copy" onclick="copyText('${server.tunnel_url}')">${server.tunnel_url} 📋</span>`
-    : `<span class="detail-val" style="color:var(--stone)">Çevrimdışı</span>`;
+    : `<span class="detail-val" style="color:var(--stone)">Offline</span>`;
 
   document.getElementById('detail-body').innerHTML = `
     <div class="detail-row">
-      <span class="detail-label">Durum</span>
+      <span class="detail-label">Status</span>
       <span class="status-dot ${server.status === 'online' ? 'online' : ''}" style="font-size:12px">${server.status || 'offline'}</span>
     </div>
     <div class="detail-row">
-      <span class="detail-label">Sunucu IP</span>
+      <span class="detail-label">Server IP</span>
       ${ipVal}
     </div>
     <div class="detail-row">
-      <span class="detail-label">Dünya Yedeği</span>
+      <span class="detail-label">World Backup</span>
       ${server.world_backup_url
-        ? `<a href="${server.world_backup_url}" target="_blank" class="detail-val green">İndir →</a>`
-        : `<span class="detail-val" style="color:var(--stone)">Yok</span>`
+        ? `<a href="${server.world_backup_url}" target="_blank" class="detail-val green">Download →</a>`
+        : `<span class="detail-val" style="color:var(--stone)">None</span>`
       }
     </div>
     <div class="detail-row">
-      <span class="detail-label">Oluşturulma</span>
+      <span class="detail-label">Created</span>
       <span class="detail-val">${new Date(server.created_at).toLocaleDateString('tr')}</span>
     </div>
     ${server.last_seen ? `<div class="detail-row">
-      <span class="detail-label">Son görülme</span>
+      <span class="detail-label">Last seen</span>
       <span class="detail-val">${new Date(server.last_seen).toLocaleString('tr')}</span>
     </div>` : ''}
 
     ${isOwner ? `
     <div class="divider"></div>
-    <div class="modal-title" style="font-size:8px;margin-bottom:16px">DAVET LİNKİ</div>
+    <div class="modal-title" style="font-size:8px;margin-bottom:16px">INVITE LINK</div>
     <div id="invite-result"></div>
-    <button class="btn sm" onclick="generateInvite('${server.id}')">Davet Kodu Oluştur</button>
+    <button class="btn sm" onclick="generateInvite('${server.id}')">Generate Invite Code</button>
     <div class="divider"></div>
     <div class="actions-row">
-      <button class="btn sm danger" onclick="doDeleteServer('${server.id}')">Sunucuyu Sil</button>
+      <button class="btn sm danger" onclick="doDeleteServer('${server.id}')">Delete Server</button>
     </div>
     ` : ''}
   `;
@@ -624,38 +674,38 @@ async function generateInvite(serverId) {
           <div class="invite-code">${r.invite_code}</div>
           <div class="invite-link">${link}</div>
         </div>
-        <button class="btn sm" onclick="copyText('${link}')">Kopyala</button>
+        <button class="btn sm" onclick="copyText('${link}')">Copy</button>
       </div>
     `;
-    showToast('Davet kodu oluşturuldu!');
-  } catch(e) { showToast('Hata: ' + e.message); }
+    showToast('Invite code created!');
+  } catch(e) { showToast('Error: ' + e.message); }
 }
 
 async function doDeleteServer(serverId) {
-  if (!confirm('Bu sunucuyu silmek istediğinden emin misin?')) return;
+  if (!confirm('Are you sure you want to delete this server?')) return;
   try {
     await api(`/api/servers/${serverId}`, 'DELETE');
     closeModal('detail-modal');
-    showToast('Sunucu silindi');
+    showToast('Server deleted');
     await refreshServers();
-  } catch(e) { showToast('Hata: ' + e.message); }
+  } catch(e) { showToast('Error: ' + e.message); }
 }
 
-// ── SUNUCUYA KATIL ──
+// ── JOIN SERVER ──
 function openJoinModal() { openModal('invite-join-modal'); }
 
 async function doJoinServer() {
   const code = document.getElementById('join-code').value.trim();
   const err = document.getElementById('join-err');
   err.classList.remove('show');
-  if (!code) { showErr(err, 'Davet kodu gerekli'); return; }
+  if (!code) { showErr(err, 'Invite code required'); return; }
   try {
     const r = await api(`/api/invites/join/${code}`);
     closeModal('invite-join-modal');
     document.getElementById('join-code').value = '';
-    showToast(`"${r.server.name}" sunucusuna katıldın!`);
+    showToast(`"${r.server.name}" you joined!`);
     await refreshServers();
-  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py çalışmıyor! Terminalde: py api.py' : e.message); }
+  } catch(e) { showErr(err, e.message.includes('fetch') ? 'api.py is not running! In terminal: py api.py' : e.message); }
 }
 
 // URL'den join parametresi varsa otomatik aç
@@ -687,7 +737,7 @@ function closeModal(id) { document.getElementById(id).classList.remove('open'); 
 function showErr(el, msg) { el.textContent = '⚠ ' + msg; el.classList.add('show'); }
 function esc(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function copyText(txt) {
-  navigator.clipboard.writeText(txt).then(() => showToast('Kopyalandı!'));
+  navigator.clipboard.writeText(txt).then(() => showToast('Copyndı!'));
 }
 function showToast(msg) {
   const t = document.getElementById('toast');
